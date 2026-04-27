@@ -1,0 +1,17 @@
+name: Test case for Dependabot's OpenTofu ecosystem
+run-name: ${{ github.actor }} is testing out OpenTofu
+on:
+  - push
+  - pull_request
+jobs:
+  Test-OpenTofu-Ecosystem:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: opentofu/setup-opentofu@v2
+      - uses: actions/checkout@v6
+      - run: tofu init
+      - run: tofu apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
